@@ -12,6 +12,7 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeService employeeService;
+
     @PostMapping("/employeenew")
     public EmployeeModel newEmployee (@RequestBody EmployeeModel newEmployee){
         return employeeService.newEmployee(newEmployee);
@@ -20,6 +21,15 @@ public class EmployeeController {
     @GetMapping("/employees")
     public Iterable<EmployeeModel> getAll(){
         return employeeService.getAll();
+    }
+
+    @PostMapping("/employeemodi")
+    public EmployeeModel updateEmployee (@RequestBody EmployeeModel employeeModel){
+        return employeeService.modifyEmployee(employeeModel);
+    }
+    @PostMapping("/employeedel/{id}")
+    public Boolean deleteEmployee (@PathVariable (value="id") Long id){
+        return employeeService.deleteEmployee(id);
     }
 
 
