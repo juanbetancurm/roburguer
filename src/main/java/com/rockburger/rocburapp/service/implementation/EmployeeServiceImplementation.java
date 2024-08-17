@@ -1,5 +1,6 @@
 package com.rockburger.rocburapp.service.implementation;
 
+import com.rockburger.rocburapp.dto.EmployeeDto;
 import com.rockburger.rocburapp.entity.EmployeeModel;
 import com.rockburger.rocburapp.repository.EmployeeRepository;
 import com.rockburger.rocburapp.service.EmployeeService;
@@ -47,4 +48,21 @@ public class EmployeeServiceImplementation implements EmployeeService {
             throw new EntityNotFoundException("Employee with id "+id_employee+" not found.");
         }
     }
+
+    public Optional<EmployeeDto> getById(Long id){
+        Optional<EmployeeModel> employeeOptional = employeeRepository.findById(id);
+        if(employeeOptional.isPresent()){
+            EmployeeModel employeeModel = employeeOptional.get();
+            EmployeeDto employeeDto = new EmployeeDto();
+            employeeDto.setId_number(employeeModel.getId_number());
+            employeeDto.setEmp_name(employeeModel.getEmp_name());
+            employeeDto.setEmp_surname(employeeModel.getEmp_surname());
+            return Optional.of(employeeDto);
+        }else {
+            throw new EntityNotFoundException("Employee with id "+id+" not found.");
+        }
+
+    }
+
+
 }
